@@ -1,0 +1,32 @@
+﻿@page "/genre/create"
+@inject  IGenreRepository genreRepository 
+@inject NavigationManager navigationManager
+
+<h3>CreateGenre</h3>
+<EditForm Model="genre" OnSubmit="Create">
+<InputText class="form-control" @bind-Value="@genre.Name"></InputText>
+    <button class="btn btn-success"  type="submit">Save</button>
+
+
+
+</EditForm>
+
+@code {
+    private Genre genre = new Genre();
+    private async Task Create()
+    {
+        try
+        {
+            await genreRepository.CreateGenre(genre);
+            navigationManager.NavigateTo("genre");
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+
+    }
+
+
+}
